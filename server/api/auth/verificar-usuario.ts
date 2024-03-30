@@ -27,6 +27,7 @@ export default defineEventHandler(async (event) => {
 
         return {
             token,
+            usuarioEncontrado,
             message: 'Credenciales correctas.'
         }
 

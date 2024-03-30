@@ -1,13 +1,13 @@
 <template>
     <div>
-hola media
+        comentario
     </div>
 </template>
 
-<script setup>
-    definePageMeta({
-    layout: 'custom',
-})
+<script>
+    export default {
+        
+    }
 </script>
 
 <style lang="scss" scoped>

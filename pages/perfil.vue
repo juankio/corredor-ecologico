@@ -1,17 +1,13 @@
 <template>
     <div>
-
+        perfil
     </div>
 </template>
 
-<script>
-export default {
-    setup () {
-        
-
-        return {}
-    }
-}
+<script setup>
+    definePageMeta({
+    layout: 'custom',
+})
 </script>
 
 <style lang="scss" scoped>

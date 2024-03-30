@@ -9,12 +9,13 @@ export default defineNuxtConfig({
     },
   },
   router: {
-    // middleware: 'auth'
+    middleware: 'auth'
   },
   modules: [
     // ...modules:
     '@pinia/nuxt',
-    '@nuxt/ui'
+    '@nuxt/ui',
+
   ],
   imports: {
     dirs: ['stores']

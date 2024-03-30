@@ -49,9 +49,7 @@ const schema = object({
     .required('Password is required')
 })
 const userStore = useUserStore();
-onMounted(() => {
-  userStore.checkJWT()
-});
+
 
 type Schema = InferType<typeof schema>
 
