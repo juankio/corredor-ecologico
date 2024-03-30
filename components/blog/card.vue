@@ -1,49 +1,57 @@
 <template>
- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  <!-- Sección 1 -->
-  <div class="flex flex-col space-y-4 p-4 bg-yellow-400 rounded-lg shadow-lg">
-    <!-- Nombre de usuario -->
-    <p class="text-lg font-semibold text-black">Usuario 1</p>
+  <div
+    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+  >
+    <div class="w-full h-full">
+      <img class="rounded-t-lg" :src="`/${image}`" :alt="name" />
+    </div>
 
-    <!-- Imagen -->
-    <div class="h-32 w-full flex justify-center items-center">
-      <img
-        src="/images/uniminuto.webp"
-        alt="Logo de Uniminuto"
-        class="max-w-full max-h-full rounded-lg"
+    <div class="p-5">
+      <div class="flex flex-col md:flex-row justify-between">
+        <div class="flex flex-col justify-between md:w-1/2">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            {{ titulo }}
+          </h5>
+        </div>
+        <div class="flex items-center">
+          <div>
+            <UIcon name="i-heroicons-user" />
+          </div>
+          <p class="ml-2 font-normal text-gray-700 dark:text-gray-400">{{ name }}.</p>
+        </div>
+      </div>
+
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ descripcion }}.</p>
+      <UButton
+        icon="i-heroicons-arrow-small-right-solid"
+        size="sm"
+        color="yellow"
+        variant="solid"
+        label="Comentar"
+        @click="navigateTo('/comentarios/1.vue')"
       />
     </div>
-
-    <!-- Icono de comentario -->
-    <div class="flex items-center justify-center w-12 h-12 rounded-full">
-      <UIcon name="i-heroicons-chat-bubble-bottom-center-text" class="text-lg bg-black font-bold" />
-    </div>
   </div>
-
-  <!-- Sección 2 -->
-  <div class="flex flex-col space-y-4 p-4 bg-yellow-400 rounded-lg shadow-lg">
-    <!-- Nombre de usuario -->
-    <p class="text-lg font-semibold text-black">Usuario 2</p>
-
-    <!-- Imagen -->
-    <div class="h-32 w-full flex justify-center items-center">
-      <img
-        src="/images/uniminuto.webp"
-        alt="Imagen 2"
-        class="max-w-full max-h-full rounded-lg"
-      />
-    </div>
-
-    <!-- Icono de comentario -->
-    <div class="flex items-center justify-center w-12 h-12 rounded-full">
-      <UIcon name="i-heroicons-chat-bubble-bottom-center-text" class="text-lg bg-black font-bold" />
-    </div>
-  </div>
-
-  <!-- Agrega más secciones según sea necesario -->
-</div>
-
-
-
-
 </template>
+<script setup>
+const props = defineProps({
+  name: {
+    type: String,
+    default: "Usuario",
+  },
+  titulo: {
+    type: String,
+    default: "Titulo",
+  },
+  descripcion: {
+    type: String,
+    default: "descripcion",
+  },
+  image: {
+    type: String,
+    default: "images/uniminuto.webp",
+  },
+});
+</script>
