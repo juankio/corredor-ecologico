@@ -3,7 +3,7 @@
     <h1 class="text-end text-xl text-white font-bold m-3 pb-20">
       Bienvenidos a nuestra red corredor ecologico {{ user.users.name }}
     </h1>
-    <div class="grid grid-cols-4 gap-5 ">
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
     <BlogCard
       v-for="(publicacion, index) in publicaciones"
       :key="index"
