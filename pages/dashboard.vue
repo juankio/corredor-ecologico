@@ -51,14 +51,7 @@ onMounted(async () => {
     // Aquí podrías mostrar un mensaje de error en tu interfaz de usuario si la solicitud falla
   }
 });
-const getFirstArchivo = (publicacion) => {
-  if (publicacion.archivo && publicacion.archivo.length > 0) {
-    return publicacion.archivo[0];
-  } else {
-    // Si no hay archivos, puedes devolver una imagen de relleno o una URL por defecto
-    return 'ruta/de/imagen/por/defecto.jpg';
-  }
-}
+
 </script>
 
 <style lang="scss" scoped></style>

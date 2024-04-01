@@ -1,8 +1,9 @@
 <template>
   <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:max-w-md">
     <div class="w-full h-full">
-      <img class="rounded-t-lg" :src="`${image}`" :alt="name" />
-
+      <div class="w-full h-40"> <!-- Aquí se establece el tamaño fijo de la imagen -->
+      <img class="w-full h-full object-cover rounded-t-lg" :src="image" :alt="name" /> <!-- Utilizamos object-cover para ajustar la imagen dentro del contenedor sin deformarla -->
+    </div>
     <div class="p-5">
       <div class="flex flex-col md:flex-row justify-between">
         <div class="flex flex-col justify-between md:w-1/2">
