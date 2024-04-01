@@ -1,17 +1,12 @@
 <template>
-  <div
-    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-  >
+  <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:max-w-md">
     <div class="w-full h-full">
-      <img class="rounded-t-lg" :src="`/${image}`" :alt="name" />
-    </div>
+      <img class="rounded-t-lg" :src="`${image}`" :alt="name" />
 
     <div class="p-5">
       <div class="flex flex-col md:flex-row justify-between">
         <div class="flex flex-col justify-between md:w-1/2">
-          <h5
-            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-          >
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {{ titulo }}
           </h5>
         </div>
@@ -33,9 +28,12 @@
         @click="navigateTo('/comentarios/1.vue')"
       />
     </div>
+    </div>
   </div>
 </template>
+
 <script setup>
+import { defineProps } from 'vue';
 const props = defineProps({
   name: {
     type: String,
@@ -51,7 +49,7 @@ const props = defineProps({
   },
   image: {
     type: String,
-    default: "images/uniminuto.webp",
+    default: "/images/uniminuto.webp",
   },
 });
 </script>

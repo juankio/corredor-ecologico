@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     },
   },
   router: {
-    middleware: 'auth'
+    // middleware: 'auth'
   },
   modules: [
     // ...modules:
@@ -21,7 +21,13 @@ export default defineNuxtConfig({
     dirs: ['stores']
   },
   runtimeConfig: {
-    MONGO_URI: process.env.MONGO_URI
+    MONGO_URI: process.env.MONGO_URI,
+    // APIKEY: process.env.APIKEY,
+    // authDomain: process.env.authDomain,
+    // projectId: process.env.projectId,
+    // storageBucket: process.env.storageBucket,
+    // messagingSenderId: process.env.messagingSenderId,
+    // appId: process.env.appId,
   },
 
 })

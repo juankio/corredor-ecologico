@@ -1,3 +1,4 @@
+import { UIcon } from '../../.nuxt/components';
 <template>
   <header class="p-4 mt-6 text-black">
     <nav>
@@ -30,7 +31,7 @@ const links = [
     {
       label: "Subir Fotos",
       icon: "i-heroicons-camera",
-      to:"/subirMedia",
+      to: "/subirMedia",
     },
   ],
   [

@@ -1,17 +1,26 @@
-import { usuario } from '../server/models/usuario.model';
 <template>
   <div>
     <h1 class="text-end text-xl text-white font-bold m-3 pb-20">
       Bienvenidos a nuestra red corredor ecologico {{ user.users.name }}
     </h1>
+    <div class="grid grid-cols-4 gap-5 ">
     <BlogCard
-      :name="nombre"
-      :titulo="titulo"
-      :descripcion="descripcion"
-      image="images/uniminuto.webp"
+      v-for="(publicacion, index) in publicaciones"
+      :key="index"
+      :name="publicacion.name"
+      :titulo="publicacion.titulo"
+      :descripcion="publicacion.descripcion"
+      :image="publicacion.archivo"
+      class="mb-32"
     />
+    <!-- <BlogCard
+      name="juan"
+      titulo="uni"
+      descripcion="descripcion"
+      image="/images/uniminuto.webp"
+    /> -->
   </div>
-
+  </div>
 </template>
 
 <script setup>
@@ -20,17 +29,36 @@ definePageMeta({
   // middleware: 'auth'
 });
 const user = useUserStore();
+const media = useMediaStore();
 const router = useRouter();
 const nombre = ref(user.users.name);
-const titulo = ref("universidad");
-const descripcion = ref("uniminuto universidad de orinoquia");
+const publicaciones = ref([]);
 console.log("nombre", nombre);
 
-onMounted(() => {
-  if (!user.token) {
-    navigateTo("/");
+onMounted(async () => {
+  try {
+    if (!user.token) {
+      navigateTo("/");
+      return; // Detiene la ejecución del código si el usuario no tiene un token
+    }
+
+    const response = await media.mostrarMedia();
+    publicaciones.value = response;
+    console.log("Publicaciones:", publicaciones);
+    // Aquí podrías asignar las publicaciones a una variable en tu estado global o en el componente para mostrarlas en tu interfaz de usuario
+  } catch (error) {
+    console.error("Error al obtener las publicaciones:", error);
+    // Aquí podrías mostrar un mensaje de error en tu interfaz de usuario si la solicitud falla
   }
 });
+const getFirstArchivo = (publicacion) => {
+  if (publicacion.archivo && publicacion.archivo.length > 0) {
+    return publicacion.archivo[0];
+  } else {
+    // Si no hay archivos, puedes devolver una imagen de relleno o una URL por defecto
+    return 'ruta/de/imagen/por/defecto.jpg';
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

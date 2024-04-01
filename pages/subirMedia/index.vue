@@ -30,14 +30,83 @@
       class="max-w-full max-h-full"
     ></video>
   </div>
+
+  <UForm :schema="schema" :state="state" class="space-y-4 mt-10" @submit="onSubmit">
+    <UFormGroup label="Título " name="titulo">
+      <UInput
+        v-model="state.titulo"
+        size="lg"
+        color="yellow"
+        placeholder="Ingrese el título"
+      />
+    </UFormGroup>
+
+    <UFormGroup label="Descripción" name="descripcion">
+      <UTextarea
+        v-model="state.descripcion"
+        size="lg"
+        resize
+        color="yellow"
+        placeholder="Ingrese la descripción"
+        maxlength="120"
+      />
+    </UFormGroup>
+
+    <UButton
+      type="submit"
+      color="yellow"
+      class="w-full text-center items-center justify-center text-3xl"
+    >
+      Publicar
+    </UButton>
+  </UForm>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { object, string, type InferType } from 'yup'
+import type { FormSubmitEvent } from '#ui/types'
+import { ref as firebaseRef, getDownloadURL, uploadBytes } from 'firebase/storage';
+
 definePageMeta({
   layout: "custom",
 });
+
+const {$storage} =useNuxtApp()
+
+const mostrar=ref()
+
+const schema = object({
+  titulo: string().required('Required'),
+  descripcion: string()
+    .max(120, 'maximo de 120 caracteres')
+    .required('Required')
+})
+
+type Schema = InferType<typeof schema>
+
+const state = reactive({
+  titulo: undefined,
+  descripcion: undefined
+})
+
+
 const selectedFile = ref(null);
 const router = useRouter();
+const media =useMediaStore()
+const toast = useToast();
+
+const uploadMediaImages = async (images) => {
+    console.log(images)
+
+    if (images?.length === 0) return []
+    const urls = images.map(async image => {
+      const imagesRef = firebaseRef($storage, `/images/${crypto.randomUUID()}`)
+      await uploadBytes(imagesRef, image)
+      return await getDownloadURL(imagesRef)
+    })
+
+    return await Promise.all(urls)
+  }
 
 const handleFileInput = (event) => {
   const file = event.target.files[0];
@@ -55,5 +124,38 @@ const getObjectURL = (file) => {
     return null;
   }
 };
+
+
+async function onSubmit (event: FormSubmitEvent<Schema>) {
+  try {
+    await schema.validate(event.data, { abortEarly: false });
+
+
+    // const responde = await userStore.login(event.data);
+    // console.log("desde aca",responde)
+    // toast.add({title:responde,color:'yellow' });
+    const data =await uploadMediaImages([selectedFile.value])
+    console.log(data)
+
+   const respuesta= await media.agregarMedia({
+    titulo: state.titulo,
+    descripcion: state.descripcion,
+    archivo: data
+});
+console.log("desde aca",respuesta)
+    toast.add({title:respuesta,color:'yellow' });
+
+
+  console.log('datos',state.titulo ,state.descripcion, data )
+
+  selectedFile.value=null
+    state.titulo = '';
+    state.descripcion = '';
+
+  } catch (error) {
+    // Captura y maneja los errores de validación
+    console.error("Error de validación:", error);
+  }
+}
 </script>
 <style></style>

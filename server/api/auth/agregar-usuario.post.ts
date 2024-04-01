@@ -21,15 +21,8 @@ export default defineEventHandler(async (event) => {
             message: 'Usuario creado exitosamente.'
         };
     } catch (error) {
-        if (error.name === 'UsuarioNoEncontrado') {
-            return {
-                error: 'Usuario no encontrado.',
-                status: 404 // Establecer el código de estado 404
-            };
-        }
         return {
-            error: 'Ocurrió un error al crear el usuario.',
-            status: 500 // Establecer un código de estado genérico para otros errores
-        };
+            error: 'Ocurrió un error al crear la pregunta.'
+        }
     }
 })
