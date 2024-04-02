@@ -49,7 +49,7 @@ if (!user.users.preguntasClave) {
       { label: "Pregunta Clave", value:  user.users.preguntasClave.preguntaClave },
       { label: "Respuesta Clave", value:  user.users.preguntasClave.respuesta }
     ];
-  }, 1000); 
+  }, 100); 
   } 
 else{
   profileFields.value = [
