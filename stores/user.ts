@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 export const useUserStore = defineStore('user', () => {
     const token = ref('')
     const users = ref([])
+    const preguntas = ref([])
     onMounted(() => {
         token.value = (typeof localStorage !== 'undefined') ? localStorage.getItem('jwt') || '' : ''
         users.value = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('users')) || [] : []
@@ -41,8 +42,18 @@ export const useUserStore = defineStore('user', () => {
             });
 
             if (data) {
+
                 token.value = data._rawValue.token;
-                users.value = data._rawValue.usuarioEncontrado
+
+                const preguntasClave = await buscarPreguntas(data._rawValue.usuarioEncontrado._id)
+                const usuarioConPreguntas = {
+                    ...data._rawValue.usuarioEncontrado,
+                    preguntasClave: preguntasClave
+                };
+                users.value = usuarioConPreguntas;
+
+                console.log('>:)', users)
+
                 if (token.value) {
                     localStorage.setItem('users', JSON.stringify(users.value))
                     localStorage.setItem('jwt', token.value);
@@ -125,13 +136,15 @@ export const useUserStore = defineStore('user', () => {
         };
 
         try {
+            console.log('estoy en preguntas ', body)
+
             const { data, error } = await useFetch('/api/auth/buscar-pregunta', {
                 method: 'POST',
                 body: JSON.stringify(body)
             });
+            console.log('estoy con la data ', data)
             if (data) {
-                this.preguntas.push(userData)
-                return
+                return data._rawValue.pregunta
             } else {
                 const mensaje = 'No se recibió preguntas.';
                 return mensaje

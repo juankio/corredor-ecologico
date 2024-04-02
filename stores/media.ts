@@ -58,8 +58,8 @@ export const useMediaStore = defineStore('media', () => {
                 console.log('back o frond', data._rawValue.data)
                 return data._rawValue.data;
             } else {
-                const mensaje = 'No se pudo encontrar publicaciones.';
-                return mensaje;
+                const error = 'No se pudo encontrar publicaciones.';
+                return error;
             }
         } catch (error) {
             // Capturar cualquier error inesperado aquí

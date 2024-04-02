@@ -29,15 +29,39 @@
 definePageMeta({
   layout: "custom",
 });
-const user= useUserStore()
+const user = useUserStore()
 
-const profileFields = [
-  { label: "Nombre", value: user.users.name },
-  { label: "Username", value: user.users.name },
-  { label: "Email", value: user.users.email },
-  { label: "Preguta Clave", value: "blablabla" },
-  { label: "Respuesta Clave", value: "blablabla" },
-];
+const profileFields = ref([])
+if (!user.users.preguntasClave) {
+  setTimeout(() => {
+    profileFields.value = { 
+      name: "Nombre de ejemplo",
+      email: "correo@example.com",
+      preguntasClave: {
+        preguntaClave: "Pregunta de seguridad",
+        respuesta: "Respuesta de seguridad"
+      }
+    };
+
+    profileFields.value = [
+      { label: "Nombre", value: user.users.name },
+      { label: "Email", value: user.users.email },
+      { label: "Pregunta Clave", value:  user.users.preguntasClave.preguntaClave },
+      { label: "Respuesta Clave", value:  user.users.preguntasClave.respuesta }
+    ];
+  }, 1000); 
+  } 
+else{
+  profileFields.value = [
+    { label: "Nombre", value: user.users.name },
+    { label: "Username", value: user.users.name },
+    { label: "Email", value: user.users.email },
+    { label: "Preguta Clave", value:  user.users.preguntasClave.preguntaClave },
+    { label: "Respuesta Clave", value:  user.users.preguntasClave.respuesta },
+  ];
+}
+
+
 </script>
 
 <style scoped>
