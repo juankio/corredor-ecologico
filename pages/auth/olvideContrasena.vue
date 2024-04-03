@@ -39,13 +39,11 @@ const schema = object({
 type Schema = InferType<typeof schema>
 
 const state = reactive({
-  email: undefined,
-  name: undefined,
-  password: undefined
+  email: undefined
 })
 const userStore = useUserStore();
 
-const User = useState("User", () => false);
+
 async function onSubmit (event: FormSubmitEvent<Schema>) {
   try {
     await schema.validate(event.data, { abortEarly: false });
@@ -54,9 +52,6 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
     toast.add({title:respuesta, color:'yellow'});
 
     state.email = '';
-    state.name = '';
-    state.password = '';
-    User.value = true; // Otra lógica para manejar el cambio de estado de usuario
 
   } catch (error) {
     // Captura y maneja los errores de validación

@@ -3,9 +3,11 @@ export const useUserStore = defineStore('user', () => {
     const token = ref('')
     const users = ref([])
     const preguntas = ref([])
+
     onMounted(() => {
         token.value = (typeof localStorage !== 'undefined') ? localStorage.getItem('jwt') || '' : ''
         users.value = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('users')) || [] : []
+        preguntas.value = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('preguntaClave')) || [] : []
     })
 
     async function agregarUsuario(userData: { email: string, name: string, password: string }) {
@@ -16,22 +18,20 @@ export const useUserStore = defineStore('user', () => {
                 body: JSON.stringify(userData)
             });
 
-            if (data) {
+            if (data && data._rawValue.message) {
                 navigateTo(`/auth/${data._rawValue.data._id}`);
 
                 return data._rawValue.message;
 
             } else {
-                const mensaje = 'No se pudo agregar el usuario.';
-                return mensaje
+                return data._rawValue.error
             }
 
         } catch (error) {
             // Captura cualquier error inesperado aquí
             console.error('Error inesperado:', error);
 
-            const mensaje = 'No se pudo agregar el usuario, Error inesperado .';
-            return mensaje
+            return data._rawValue.error
         }
     }
     async function login(userData: { email: string, password: string }) {
@@ -54,7 +54,7 @@ export const useUserStore = defineStore('user', () => {
 
                 console.log('>:)', users)
 
-                if (token.value) {
+                if (token.value && data._rawValue.message) {
                     localStorage.setItem('users', JSON.stringify(users.value))
                     localStorage.setItem('jwt', token.value);
                     // Verificar si useFetch está configurado correctamente para manejar encabezados personalizados
@@ -67,14 +67,13 @@ export const useUserStore = defineStore('user', () => {
                 // Redirige al usuario a la página principal u otra página según sea necesario
                 return data._rawValue.message;
             } else {
-                const mensaje = 'No se recibió una respuesta válida del servidor.';
-                return mensaje;
+
+                return data._rawValue.error
             }
         } catch (error) {
             // Maneja cualquier error ocurrido durante la solicitud
             console.error('Error al iniciar sesión:', error);
-            const mensaje = 'Error al iniciar sesión.';
-            return mensaje;
+            return data._rawValue.error
         }
     }
 
@@ -87,7 +86,7 @@ export const useUserStore = defineStore('user', () => {
                 body: JSON.stringify({ ...userData, user: userString })
             });
 
-            if (data && data._rawValue.preguntaCreada) {
+            if (data._rawValue.message && data._rawValue.preguntaCreada) {
                 navigateTo('/');
                 return data._rawValue.message;
             } else {
@@ -98,8 +97,8 @@ export const useUserStore = defineStore('user', () => {
         catch (error) {
             // Maneja cualquier error ocurrido durante la solicitud
             console.error('Error al crear la pregunta:', error);
-            const mensaje = 'Error al crear la pregunta.';
-            return mensaje
+
+            return data._rawValue.error
         }
 
     }
@@ -110,21 +109,27 @@ export const useUserStore = defineStore('user', () => {
                 body: JSON.stringify(userData)
             });
 
-            if (data && data._rawValue._id) {
-                this.idUsuario = data._rawValue._id
+            if (data._rawValue.message && data._rawValue._id) {
                 navigateTo('/auth/recuperarContrasena');
-                this.buscarPreguntas(data._rawValue._id)
+                const pregunta = await buscarPreguntas(data._rawValue._id)
+                preguntas.value = pregunta
+                if (pregunta) {
+                    console.log("pregunta dudosas", preguntas.value)
+
+                    localStorage.setItem('preguntaClave', JSON.stringify(preguntas.value))
+                    localStorage.setItem('id', JSON.stringify(data._rawValue._id))
+                }
+
+                preguntas.value = pregunta
                 return data._rawValue.message;
             } else {
-                const mensaje = 'No se recibió una respuesta válida del servidor.';
-                return mensaje
+                return data._rawValue.error
             }
         }
         catch (error) {
             // Maneja cualquier error ocurrido durante la solicitud
             console.error('Error al crear la pregunta:', error);
-            const mensaje = 'Error al crear la pregunta';
-            return mensaje
+            return data._rawValue.error
         }
 
     }
@@ -136,18 +141,16 @@ export const useUserStore = defineStore('user', () => {
         };
 
         try {
-            console.log('estoy en preguntas ', body)
 
             const { data, error } = await useFetch('/api/auth/buscar-pregunta', {
                 method: 'POST',
                 body: JSON.stringify(body)
             });
-            console.log('estoy con la data ', data)
-            if (data) {
+            if (data && data._rawValue.message) {
                 return data._rawValue.pregunta
             } else {
-                const mensaje = 'No se recibió preguntas.';
-                return mensaje
+
+                return data._rawValue.error
             }
             // Manejar la respuesta del servidor
         } catch (error) {
@@ -156,9 +159,33 @@ export const useUserStore = defineStore('user', () => {
         }
 
     }
+    async function actualizarContrasena(userData: { _id: string, preguntaClave: string, respuesta: string, password: string }) {
+        try {
+            const { data, pending, error } = await useFetch('/api/auth/actualizar-contrasena', {
+                method: 'PATCH',
+                body: JSON.stringify(userData)
+            });
+
+            if (data._rawValue.message) {
+                navigateTo('/');
+                return data._rawValue.message;
+            } else {
+                return data._rawValue.error
+            }
+        }
+        catch (error) {
+            // Maneja cualquier error ocurrido durante la solicitud
+            console.error('Error al crear la pregunta:', error);
+            const mensaje = 'Error al crear la pregunta';
+            return mensaje
+        }
+
+    }
+
 
     return {
 
+        actualizarContrasena,
         buscarPreguntas,
         buscarCuenta,
         preguntaClave,

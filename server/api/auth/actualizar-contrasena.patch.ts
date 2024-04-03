@@ -14,13 +14,13 @@ export default defineEventHandler(async (event) => {
         // Verificar si se encontró una pregunta con la clave y respuesta proporcionadas
         if (!pregunta) {
             return {
-                error: 'La pregunta clave o la respuesta son incorrectas.'
+                error: 'La respuesta son es correcta.'
             }
         }
 
         // Cambiar la contraseña del usuario usando el ID proporcionado
         const usuarioActualizado = await usuario.findByIdAndUpdate(body._id, {
-            password: body.password,
+            password: body.password
         })
 
         // Verificar si se pudo actualizar el usuario
@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
         }
 
         return {
-            mensaje: 'Contraseña actualizada exitosamente.'
+            message: 'Contraseña actualizada exitosamente.'
         }
     } catch (error) {
         return {

@@ -8,6 +8,7 @@
           Pregunta de recuperacion de contraseña
         </p>
       </div>
+      
       <UForm :schema="schema" :state="state" class="text-start w-80" @submit="onSubmit">
         <UFormGroup class="" name="pregunta">
           <UInput

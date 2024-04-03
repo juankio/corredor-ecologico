@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
         }
     } catch (error) {
         return {
-            message: 'Ocurrió un error al crear la pregunta.'
+            error: 'Ocurrió un error al crear la pregunta.'
         }
     }
 })
