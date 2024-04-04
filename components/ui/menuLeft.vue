@@ -38,17 +38,17 @@ const links = [
     {
       label: "Sobre Nosotros",
       icon: "i-heroicons-user-group",
-      to: "/subirMedia",
+      to: "/despiste",
     },
     {
       label: "Nuestras metas",
       icon: "i-heroicons-light-bulb",
-      to: "/subirMedia",
+      to: "/despiste",
     },
     {
       label: "Uniminuto",
       icon: "i-heroicons-academic-cap",
-      to: "/subirMedia",
+      to: "/despiste",
     },
   ],
   [
