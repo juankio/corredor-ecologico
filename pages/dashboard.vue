@@ -14,20 +14,12 @@
         class="mb-32"
       />
     </div>
-    <div v-else>
-      <BlogCard
-        name="juan"
-        titulo="uni"
-        descripcion="descripcion"
-        image="/images/uniminuto.webp"
-      />
-    </div>
+      <p v-else class="text-white text-2xl text-center mt-5">No Publicaciones </p>
+      
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 import { useMediaStore } from '@/stores/media';
 

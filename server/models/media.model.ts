@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { array } from "yup";
 
 const mediaSchema = new mongoose.Schema({
     user: {

@@ -1,4 +1,3 @@
-import { UIcon } from '../../.nuxt/components';
 <template>
   <header class="p-4 mt-6 text-black">
     <nav>
@@ -14,6 +13,7 @@ import { UIcon } from '../../.nuxt/components';
 </template>
 
 <script setup lang="ts">
+
 const route = useRoute();
 
 const links = [
@@ -38,17 +38,27 @@ const links = [
     {
       label: "Sobre Nosotros",
       icon: "i-heroicons-user-group",
-      to: "/components/command-palette",
+      to: "/subirMedia",
     },
     {
       label: "Nuestras metas",
       icon: "i-heroicons-light-bulb",
-      to: "/components/command-palette",
+      to: "/subirMedia",
     },
     {
       label: "Uniminuto",
       icon: "i-heroicons-academic-cap",
-      to: "/components/command-palette",
+      to: "/subirMedia",
+    },
+  ],
+  [
+    {
+      label: "Exit",
+      icon: "i-heroicons-arrow-left-start-on-rectangle-20-solid",
+      to: "/",
+      onClick: function() {
+        localStorage.clear(); // Borra todos los datos del localStorage
+      }
     },
   ],
 ];

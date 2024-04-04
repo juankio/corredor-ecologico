@@ -17,15 +17,7 @@ const usuarioSchema = new Schema({
         trim: true,
         unique: true,
         lowercase: true
-    },
-    token: {
-        type: String,
-        default: () => Date.now().toString(32) + Math.random().toString(32).substring(2)
-    },
-    verified: {
-        type: Boolean,
-        default: false
-    },
+    }
 })
 
 export const usuario = model('usuario', usuarioSchema)
