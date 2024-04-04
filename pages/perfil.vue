@@ -54,7 +54,6 @@ if (!user.users.preguntasClave) {
 else{
   profileFields.value = [
     { label: "Nombre", value: user.users.name },
-    { label: "Username", value: user.users.name },
     { label: "Email", value: user.users.email },
     { label: "Preguta Clave", value:  user.users.preguntasClave.preguntaClave },
     { label: "Respuesta Clave", value:  user.users.preguntasClave.respuesta },
