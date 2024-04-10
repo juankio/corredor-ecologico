@@ -14,10 +14,8 @@ const verifyToken = (req, res, next) => {
     try {
         // Verificar y decodificar el token
         const decoded = jwt.verify(token.split(' ')[1], 'secreto');
-
         // Agregar el usuario decodificado al objeto de solicitud para su posterior uso
         req.user = decoded;
-
         // Continuar con la ejecución de la solicitud
         next();
     } catch (error) {

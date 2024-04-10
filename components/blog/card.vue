@@ -26,7 +26,7 @@
         color="yellow"
         variant="solid"
         label="Comentar"
-        @click="navigateTo('/comentarios/1.vue')"
+        @click="navigateTo(`/comentarios/${comentario}/comentarios`)"
       />
     </div>
     </div>
@@ -51,6 +51,10 @@ const props = defineProps({
   image: {
     type: String,
     default: "/images/uniminuto.webp",
+  },
+  comentario: {
+    type: String,
+    default: "111111",
   },
 });
 </script>

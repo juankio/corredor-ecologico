@@ -11,6 +11,7 @@
         :titulo="publicacion.titulo"
         :descripcion="publicacion.descripcion"
         :image="publicacion.archivo"
+        :comentario="publicacion._id" 
         class="mb-32"
       />
     </div>
@@ -45,6 +46,8 @@ onMounted(async () => {
     
     const response = await media.mostrarMedia();
     publicaciones.value = response || [];
+    console.log(publicaciones)
+    
   } catch (error) {
     console.error("Error al obtener las publicaciones:", error);
   }

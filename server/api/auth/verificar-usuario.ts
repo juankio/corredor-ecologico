@@ -11,14 +11,14 @@ export default defineEventHandler(async (event) => {
 
         if (!usuarioEncontrado) {
             return {
-                message: 'Correo electrónico no encontrado.'
+                error: 'Correo electrónico no encontrado.'
             }
         }
 
         // Verificar si la contraseña es correcta
         if (body.password !== usuarioEncontrado.password) {
             return {
-                message: 'contraseña incorrectos.',
+                error: 'contraseña incorrectos.',
             }
         }
 
@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
     } catch (error) {
         console.log(error)
         return {
-            message: 'Ocurrió un error al iniciar sesión.'
+            error: 'Ocurrió un error al iniciar sesión.'
         };
     }
 });

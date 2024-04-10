@@ -41,7 +41,7 @@ export const useUserStore = defineStore('user', () => {
                 body: JSON.stringify(userData)
             });
 
-            if (data) {
+            if (data._rawValue.message) {
 
                 token.value = data._rawValue.token;
 
@@ -65,7 +65,7 @@ export const useUserStore = defineStore('user', () => {
                     return data._rawValue.message;
                 }
                 // Redirige al usuario a la página principal u otra página según sea necesario
-                return data._rawValue.message;
+                return data._rawValue.error;
             } else {
 
                 return data._rawValue.error
@@ -176,8 +176,7 @@ export const useUserStore = defineStore('user', () => {
         catch (error) {
             // Maneja cualquier error ocurrido durante la solicitud
             console.error('Error al crear la pregunta:', error);
-            const mensaje = 'Error al crear la pregunta';
-            return mensaje
+            return data._rawValue.error
         }
 
     }

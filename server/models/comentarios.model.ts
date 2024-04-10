@@ -6,6 +6,11 @@ const comentarioSchema = new mongoose.Schema({
         require: true,
         trim: true,
     },
+    tituloMensage: {
+        type: String,
+        require: true,
+        trim: true,
+    },
     mensaje: {
         type: String,
         require: true,
@@ -14,11 +19,6 @@ const comentarioSchema = new mongoose.Schema({
     idMedia: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'media',
-    },
-    img: {
-        type: [String],
-        require: true,
-        trim: true,
     }
 })
 
