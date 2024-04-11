@@ -35,19 +35,18 @@ export default defineEventHandler(async (event) => {
         const nuevoComentario = await comentario.create({
             userName: body.userName,
             mensaje: body.mensaje,
+            tituloMensage: body.tituloMensage,
             idMedia: body.idMedia,
             img: body.img
         });
 
         return {
-            success: true,
             data: nuevoComentario,
             message: 'Comentario creado exitosamente.'
         };
     } catch (error) {
         console.error('Error al crear el comentario:', error);
         return {
-            success: false,
             error: 'Error interno del servidor al crear el comentario.'
         };
     }

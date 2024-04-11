@@ -29,18 +29,16 @@ export const useMediaStore = defineStore('media', () => {
                 })
             });
 
-            if (data) {
+            if (data._rawValue.message) {
                 navigateTo('/dashboard');
                 return data._rawValue.message;
             } else {
-                const mensaje = 'No se pudo agregar el medio.';
-                return mensaje;
+                return data._rawValue.error;
             }
         } catch (error) {
             // Capturar cualquier error inesperado aquí
             console.error('Error inesperado:', error);
-            const mensaje = 'No se pudo agregar el medio. Error inesperado.';
-            return mensaje;
+            return data._rawValue.error;
         }
     }
     async function mostrarMedia() {
@@ -75,6 +73,7 @@ export const useMediaStore = defineStore('media', () => {
     }) {
         try {
             const token = localStorage.getItem('jwt'); // Obtener el token de localStorage
+            // console.log('>:)', mediaData)
 
             const { data, error } = await useFetch('/api/media/comentar-media', {
                 method: 'POST',
@@ -88,12 +87,13 @@ export const useMediaStore = defineStore('media', () => {
                 })
             });
 
-            if (data) {
-                console.log('back o frond', data._rawValue.data)
-                return data._rawValue.data;
+            if (data._rawValue.message) {
+                console.log('back o frond', data)
+                navigateTo(`/comentarios/${mediaData.idMedia}`)
+
+                return data._rawValue.message;
             } else {
-                const error = 'No se pudo encontrar publicaciones.';
-                return error;
+                return data._rawValue.error;
             }
         } catch (error) {
             // Capturar cualquier error inesperado aquí
@@ -110,6 +110,7 @@ export const useMediaStore = defineStore('media', () => {
         tituloMedia,
         descripcionMedia,
         agregarMedia,
-        mostrarMedia
+        mostrarMedia,
+        comentarios
     }
 })

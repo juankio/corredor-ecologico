@@ -50,6 +50,8 @@
 import { object, string, type InferType } from 'yup'
 import type { FormSubmitEvent } from '#ui/types'
 
+const route = useRoute();
+const media = useMediaStore();
 const schema = object({
   tituloComentario: string().required('Required'),
   comentario: string()
@@ -64,16 +66,21 @@ const state = reactive({
   comentario: undefined
 })
 
+const toast = useToast();
 async function onSubmit (event: FormSubmitEvent<Schema>) {
   try {
     await schema.validate(event.data, { abortEarly: false });
+    const respuesta= await media.comentarios({
+    mensaje: state.tituloComentario,
+    tituloMensage: state.comentario,
+    idMedia: route.params.comentario
+});
+    console.log("desde aca",respuesta)
+    toast.add({title:respuesta ,color:'yellow' });
 
-    // const responde = await userStore.login(event.data);
-    console.log("desde aca",responde)
-    // toast.add({title:responde,color:'yellow' });
-
-    // state.tituloComentario = '';
-    // state.password = '';
+    state.tituloComentario = '';
+    state.comentario = '';
+   
 
   } catch (error) {
     // Captura y maneja los errores de validación
