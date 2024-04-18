@@ -5,11 +5,6 @@ const mediaSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'usuario',
     },
-    name: {
-        type: String,
-        require: true,
-        trim: true,
-    },
     titulo: {
         type: String,
         require: true,

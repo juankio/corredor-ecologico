@@ -11,8 +11,8 @@
 
       <UForm :schema="schema" :state="state" class="text-start w-80" @submit="onSubmit">
         <UFormGroup class="mt-4">
-          <UInput
-            icon="i-heroicons-question-mark-circle"
+          <UTextarea 
+            
             class="text-center justify-center items-center"
             size="lg"
             color="yellow"

@@ -83,13 +83,12 @@ export const useMediaStore = defineStore('media', () => {
                 },
                 body: JSON.stringify({
                     ...mediaData,
-                    userName: userStore.users._id,
                 })
             });
 
             if (data._rawValue.message) {
                 console.log('back o frond', data)
-                navigateTo(`/comentarios/${mediaData.idMedia}`)
+                navigateTo(`/dashboard`)
 
                 return data._rawValue.message;
             } else {
@@ -102,7 +101,35 @@ export const useMediaStore = defineStore('media', () => {
             return mensaje;
         }
     }
+    async function todosComentarios(mediaData: {
+        idMedia: string,
+    }) {
+        try {
+            const token = localStorage.getItem('jwt'); // Obtener el token de localStorage
 
+            const { data, error } = await useFetch('/api/media/mostrar-comentario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(mediaData)
+            });
+
+
+            if (data._rawValue.message) {
+                console.log('back o sapo', data)
+                return data._rawValue.data;
+            } else {
+                return data._rawValue.error;
+            }
+
+        } catch (error) {
+            // Mostrar mensajes de error más descriptivos al usuario
+            console.error('Error al obtener los comentarios:', error.message);
+            return 'No se pudieron obtener los comentarios. Por favor, inténtalo de nuevo más tarde.';
+        }
+    }
 
     //enviar los datos ala base de datos
     return {
@@ -111,6 +138,7 @@ export const useMediaStore = defineStore('media', () => {
         descripcionMedia,
         agregarMedia,
         mostrarMedia,
-        comentarios
+        comentarios,
+        todosComentarios
     }
 })

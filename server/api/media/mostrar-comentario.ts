@@ -1,5 +1,5 @@
+import { comentario } from "../../models/comentarios.model";
 import jwt from 'jsonwebtoken';
-import { comentario } from '../../models/comentarios.model';
 
 const verifyToken = (req, res, next) => {
     // Obtener el token del encabezado de autorización
@@ -13,10 +13,8 @@ const verifyToken = (req, res, next) => {
     try {
         // Verificar y decodificar el token
         const decoded = jwt.verify(token.split(' ')[1], 'secreto');
-
         // Agregar el usuario decodificado al objeto de solicitud para su posterior uso
         req.user = decoded;
-
         // Continuar con la ejecución de la solicitud
         next();
     } catch (error) {
@@ -25,35 +23,33 @@ const verifyToken = (req, res, next) => {
     }
 };
 
-// Asegúrate de importar la función verifyToken desde donde esté definida
-
 export default defineEventHandler(async (event) => {
     try {
-        const body = await readBody(event)
-        await verifyToken(event.req, event.res, () => { }); // Verificar el token antes de procesar la solicitud
-        // Crear un nuevo comentario en la base de datos
-        const nuevoComentario = await comentario.create({
-            userName: body.userName,
-            mensaje: body.mensaje,
-            tituloMensage: body.tituloMensage,
-            idMedia: body.idMedia,
-            img: body.img
-        });
-        await nuevoComentario.populate({
-            path: 'idMedia',
-            select: 'archivo titulo descripcion user',
-            populate: {
+        await verifyToken(event.req, event.res, () => { });
+
+        const body = await readBody(event);
+
+        // Buscar todos los comentarios con el idMedia especificado
+        const comentarios = await comentario.find(
+            { idMedia: body.idMedia },
+            { tituloMensage: 1, mensaje: 1, userName: 1, idMedia: 1 }
+        ).populate({
+            path: 'idMedia', select: 'archivo', populate: {
                 path: 'user',
-                select: 'name email',
+                select: 'name',
             }
-        })
+        });
         return {
-            message: 'Comentario creado exitosamente.'
+            data: comentarios,
+            message: 'Comentarios obtenidos exitosamente.'
         };
     } catch (error) {
-        console.error('Error al crear el comentario:', error);
+        console.error('Error al recuperar los comentarios:', error);
         return {
-            error: 'Error interno del servidor al crear el comentario.'
+            statusCode: 500,
+            body: {
+                error: 'Ocurrió un error al recuperar los comentarios.'
+            }
         };
     }
 });

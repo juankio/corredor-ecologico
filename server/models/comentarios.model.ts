@@ -1,11 +1,6 @@
 import mongoose from "mongoose";
 
 const comentarioSchema = new mongoose.Schema({
-    userName: {
-        type: String,
-        require: true,
-        trim: true,
-    },
     tituloMensage: {
         type: String,
         require: true,
@@ -19,6 +14,7 @@ const comentarioSchema = new mongoose.Schema({
     idMedia: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'media',
+        required: true
     }
 })
 

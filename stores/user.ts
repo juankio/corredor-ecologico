@@ -146,9 +146,12 @@ export const useUserStore = defineStore('user', () => {
                 method: 'POST',
                 body: JSON.stringify(body)
             });
-            if (data && data._rawValue.message) {
+
+
+            if (data._rawValue.message) {
                 return data._rawValue.pregunta
             } else {
+                console.log('esta en error')
 
                 return data._rawValue.error
             }
@@ -176,7 +179,6 @@ export const useUserStore = defineStore('user', () => {
         catch (error) {
             // Maneja cualquier error ocurrido durante la solicitud
             console.error('Error al crear la pregunta:', error);
-            return data._rawValue.error
         }
 
     }

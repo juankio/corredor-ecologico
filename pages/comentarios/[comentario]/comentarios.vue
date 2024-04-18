@@ -71,9 +71,9 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
   try {
     await schema.validate(event.data, { abortEarly: false });
     const respuesta= await media.comentarios({
-    mensaje: state.tituloComentario,
-    tituloMensage: state.comentario,
-    idMedia: route.params.comentario
+      tituloMensage: state.tituloComentario,
+      mensaje: state.comentario,
+      idMedia: route.params.comentario
 });
     console.log("desde aca",respuesta)
     toast.add({title:respuesta ,color:'yellow' });

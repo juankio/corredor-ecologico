@@ -28,8 +28,7 @@ export default defineEventHandler(async (event) => {
     try {
         await verifyToken(event.req, event.res, () => { });
         // Obtener todas las publicaciones ordenadas por fecha de creación (la más reciente primero)
-        const publicaciones = await media.find().sort({ createdAt: -1 });
-
+        const publicaciones = await media.find().sort({ createdAt: -1 }).populate({ path: 'user', select: 'name' });
         return {
             data: publicaciones,
             message: 'Publicaciones recuperadas exitosamente.'

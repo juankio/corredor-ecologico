@@ -50,7 +50,6 @@ const schema = object({
 })
 const userStore = useUserStore();
 
-
 type Schema = InferType<typeof schema>
 
 const state = reactive({

@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
             descripcion: body.descripcion,
             archivo: body.archivo
         });
-
+        await publicacion.populate({ path: 'user', select: 'name' })
         return {
             data: publicacion,
             message: 'Publicación creada exitosamente.'

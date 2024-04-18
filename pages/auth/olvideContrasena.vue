@@ -48,7 +48,8 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
   try {
     await schema.validate(event.data, { abortEarly: false });
 
-    const respuesta = await userStore.buscarCuenta(event.data);
+    const respuesta = await userStore.buscarCuenta(schema.email);
+    
     toast.add({title:respuesta, color:'yellow'});
 
     state.email = '';

@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
         if (!preguntaEncontrada) {
             return {
-                message: 'No se encontró ninguna pregunta para este usuario.'
+                error: 'No se encontró ninguna pregunta para este usuario.'
             };
         }
 
@@ -18,7 +18,6 @@ export default defineEventHandler(async (event) => {
             message: 'Pregunta encontrada exitosamente.'
         };
     } catch (error) {
-        console.error(error);
         return {
             error: 'Ocurrió un error al buscar la pregunta.'
         };

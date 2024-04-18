@@ -28,6 +28,33 @@
           />
         </template>
       </UVerticalNavigation>
+      <UVerticalNavigation
+        :links="links2"
+        :ui="{
+          wrapper: 'truncate',
+          base: 'group block  leading-6 before:hidden',
+          padding: 'p-0 pt-4',
+          active: 'text-red-400 dark:text-red-400 border-current font-semibold',
+          inactive:
+            'border-transparent hover:border-gray-400 dark:hover:border-gray-500 text-red-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500',
+        }"
+        @click="handleExit"
+      >
+        <template #icon="{ link }">
+          <UIcon
+            v-if="link.type"
+            :name="types[link.type].icon"
+            :class="types[link.type].color"
+            class="text-lg"
+          />
+          <UIcon
+            v-else
+            :name="types.default.icon"
+            :class="types.default.color"
+            class="text-base"
+          />
+        </template>
+      </UVerticalNavigation>
 
       <img
         src="/images/UNIMINUTO.png"
@@ -102,28 +129,21 @@ const links = [
     type: "uni",
     to: "/despiste",
   },
-  
+];
+const links2 = [
   {
-      label: "Exit",
-      type: "exit",
-      to: "/",
-    },
+    label: "Exit",
+    type: "exit",
+    to: "/",
+  },
 ];
-
-const salir = [
-  
-  [
-    {
-      label: "Exit",
-      icon: "i-heroicons-arrow-left-start-on-rectangle-20-solid",
-      to: "/",
-    },
-  ],
-];
-
 const toast = useToast();
-const borrarDatos = () => {
+const handleExit = () => {
+  // Lógica para manejar la acción de salida...
+  localStorage.removeItem("users");
+  localStorage.removeItem("jwt");
   toast.add({ title: "Cerrando session", color: "yellow" });
-  localStorage.clear();
+  // Redirigir a la ruta de salida
 };
+
 </script>

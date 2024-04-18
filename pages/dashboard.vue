@@ -7,7 +7,7 @@
       <BlogCard
         v-for="(publicacion, index) in publicaciones"
         :key="index"
-        :name="publicacion.name"
+        :name="publicacion.user.name"
         :titulo="publicacion.titulo"
         :descripcion="publicacion.descripcion"
         :image="publicacion.archivo"
