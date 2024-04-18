@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { defineProps } from "vue";
 const props = defineProps({
   name: {
@@ -64,4 +64,5 @@ const props = defineProps({
     default: "111111",
   },
 });
+
 </script>

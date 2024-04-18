@@ -8,7 +8,7 @@
             v-if="imagenComentario"
             :src="imagenComentario"
             alt=""
-            class="mt-9 w-full h-auto rounded sm:h-96 lg:col-span-7 dark:bg-gray-500"
+            class="mt-9 w-full h-full rounded object-cover sm:h-96 lg:col-span-7 dark:bg-gray-500"
           />
           <p v-else class="text-white text-2xl text-center mt-5">No hay imagen disponible</p>
         </div>
@@ -30,7 +30,21 @@
                 :trailing="false"
                 @click="navigateTo(`/comentarios/${route.params.comentario}/comentarios`)"
               />
-              <p v-else class="text-white text-2xl text-center ">No hay comentarios</p>
+             <div v-else> 
+              <div class="flex flex-col">
+                <UButton
+                  v-if="comentario.length > 0"
+                  icon="i-heroicons-pencil-square"
+                  size="sm"
+                  color="yellow"
+                  variant="solid"
+                  label="Agregar comentario"
+                  :trailing="false"
+                  @click="navigateTo(`/comentarios/${route.params.comentario}/comentarios`)"
+                />
+                <p  class="text-white text-2xl text-center mt">No hay comentarios</p>
+              </div>
+              </div>
             </div>
             <!-- Acordeón de comentarios -->
             <UAccordion v-if="comentario.length > 0" color="yellow" variant="outline" size="sm" :items="comentario" />
@@ -64,7 +78,7 @@ onMounted(async () => {
     const response = await media.todosComentarios({ idMedia: route.params.comentario });
     if (Array.isArray(response) && response.length > 0) {
       comentario.value = response.map((item, index) => ({
-        label: `usuario: ${item.idMedia.user.name} Titulo: ${item.tituloMensage}`,
+        label: `${item.idMedia.user.name}: ${item.tituloMensage}`,
         icon: "i-heroicons-user",
         content: item.mensaje,
       }));
