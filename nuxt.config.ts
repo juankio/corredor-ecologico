@@ -11,6 +11,12 @@ export default defineNuxtConfig({
   router: {
     // middleware: 'auth'
   },
+  app: {
+    head: {
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+    }
+  },
   modules: [
     // ...modules:
     '@pinia/nuxt',

@@ -28,6 +28,14 @@ definePageMeta({
   layout: "custom",
 });
 
+useSeoMeta({
+  title: 'Dashboard-Corredor Ecologico',
+  ogTitle: 'Dashboard-Corredor Ecologico',
+  description: 'Descubre un paraíso natural en el Corredor Ecológico, donde la biodiversidad y la conservación se unen en armonía.',
+  ogDescription: 'Explora la belleza natural del Corredor Ecológico y enamórate de la naturaleza como nunca antes.',
+  ogImage: 'https://example.com/image.png',
+  twitterCard: 'summary_large_image',
+})
 const user = useUserStore();
 const media = useMediaStore();
 const router = useRouter();

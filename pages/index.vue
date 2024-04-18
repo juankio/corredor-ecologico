@@ -31,15 +31,29 @@
           />
         </UFormGroup>
 
-        <UButton type="submit" color="yellow" class="justify-center mt-10 w-full" label=" Iniciar Sesion"/>
+        <UButton
+          type="submit"
+          color="yellow"
+          class="justify-center mt-10 w-full"
+          label=" Iniciar Sesion"
+        />
       </UForm>
-      <UiLiinks/>
+      <UiLiinks />
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { object, string, type InferType } from 'yup'
 import type { FormSubmitEvent } from '#ui/types'
+
+useSeoMeta({
+  title: 'Subir Media-Corredor Ecologico',
+  ogTitle: 'Subir Media-Corredor Ecologico',
+  description: 'Descubre un paraíso natural en el Corredor Ecológico, donde la biodiversidad y la conservación se unen en armonía.',
+  ogDescription: 'Explora la belleza natural del Corredor Ecológico y enamórate de la naturaleza como nunca antes.',
+  ogImage: 'https://example.com/image.png',
+  twitterCard: 'summary_large_image',
+})
 
 const toast = useToast();
 const schema = object({

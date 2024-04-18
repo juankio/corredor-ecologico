@@ -62,7 +62,14 @@
 definePageMeta({
   layout: "custom",
 });
-
+useSeoMeta({
+  title: 'Cometarios-Corredor Ecologico',
+  ogTitle: 'Cometarios-Corredor Ecologico',
+  description: 'Descubre un paraíso natural en el Corredor Ecológico, donde la biodiversidad y la conservación se unen en armonía.',
+  ogDescription: 'Explora la belleza natural del Corredor Ecológico y enamórate de la naturaleza como nunca antes.',
+  ogImage: 'https://example.com/image.png',
+  twitterCard: 'summary_large_image',
+})
 // Variables reactivas
 const comentario = ref([]);
 const imagenComentario = ref(null);

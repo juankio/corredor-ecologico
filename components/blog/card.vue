@@ -5,7 +5,7 @@
     <div class="w-full h-full">
       <div class="w-full h-40">
         <!-- Aquí se establece el tamaño fijo de la imagen -->
-        <img class="w-full h-full rounded-t-lg" :src="image" :alt="name" />
+        <img class="w-full h-full object-cover rounded-t-lg" :src="image" :alt="name" />
       </div>
       <div class="p-5">
         <div class="flex flex-col md:flex-row justify-between">
