@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { useUserStore } from '@/stores/user';
+import { usuario } from '../server/models/usuario.model';
 
 export const useMediaStore = defineStore('media', () => {
     const archivo = ref({})
@@ -70,6 +71,7 @@ export const useMediaStore = defineStore('media', () => {
         titulo: string,
         comentario: string,
         idMedia: string,
+        usuario: string
     }) {
         try {
             const token = localStorage.getItem('jwt'); // Obtener el token de localStorage

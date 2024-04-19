@@ -11,6 +11,11 @@ const comentarioSchema = new mongoose.Schema({
         require: true,
         trim: true,
     },
+    mensaje: {
+        type: String,
+        require: true,
+        trim: true,
+    },
     idMedia: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'media',
