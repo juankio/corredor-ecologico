@@ -54,7 +54,6 @@ onMounted(async () => {
     
     const response = await media.mostrarMedia();
     publicaciones.value = response || [];
-    console.log(publicaciones)
     
   } catch (error) {
     console.error("Error al obtener las publicaciones:", error);

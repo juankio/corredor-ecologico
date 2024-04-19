@@ -1,7 +1,6 @@
 export default defineNuxtRouteMiddleware(async () => {
     const user = useUserStore();
     const router = useRouter();
-    console.log('Valor de user.token:', user.token);
 
     // Verificar si el usuario tiene un token y si está intentando acceder a la ruta '/dashboard'
     // if (navigateTo('/dashboard') === '/dashboard' && !user.token) {

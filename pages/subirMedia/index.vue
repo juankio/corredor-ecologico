@@ -103,7 +103,6 @@ const media =useMediaStore()
 const toast = useToast();
 
 const uploadMediaImages = async (images) => {
-    console.log(images)
 
     if (images?.length === 0) return []
     const urls = images.map(async image => {
@@ -137,23 +136,16 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
   try {
     await schema.validate(event.data, { abortEarly: false });
 
-
-    // const responde = await userStore.login(event.data);
-    // console.log("desde aca",responde)
-    // toast.add({title:responde,color:'yellow' });
     const data =await uploadMediaImages([selectedFile.value])
-    console.log(data)
 
    const respuesta= await media.agregarMedia({
     titulo: state.titulo,
     descripcion: state.descripcion,
     archivo: data
 });
-console.log("desde aca",respuesta)
     toast.add({title:respuesta,color:'yellow' });
 
 
-  console.log('datos',state.titulo ,state.descripcion, data )
 
   selectedFile.value=null
     state.titulo = '';

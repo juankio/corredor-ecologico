@@ -11,7 +11,6 @@ export const useUserStore = defineStore('user', () => {
     })
 
     async function agregarUsuario(userData: { email: string, name: string, password: string }) {
-        console.log(userData)
         try {
             const { data, error } = await useFetch('/api/auth/agregar-usuario', {
                 method: 'POST',
@@ -52,7 +51,6 @@ export const useUserStore = defineStore('user', () => {
                 };
                 users.value = usuarioConPreguntas;
 
-                console.log('>:)', users)
 
                 if (token.value && data._rawValue.message) {
                     localStorage.setItem('users', JSON.stringify(users.value))
@@ -114,7 +112,6 @@ export const useUserStore = defineStore('user', () => {
                 const pregunta = await buscarPreguntas(data._rawValue._id)
                 preguntas.value = pregunta
                 if (pregunta) {
-                    console.log("pregunta dudosas", preguntas.value)
 
                     localStorage.setItem('preguntaClave', JSON.stringify(preguntas.value))
                     localStorage.setItem('id', JSON.stringify(data._rawValue._id))
@@ -151,7 +148,6 @@ export const useUserStore = defineStore('user', () => {
             if (data._rawValue.message) {
                 return data._rawValue.pregunta
             } else {
-                console.log('esta en error')
 
                 return data._rawValue.error
             }

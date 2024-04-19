@@ -7,7 +7,6 @@ export default defineEventHandler(async (event) => {
 
         // Buscar el usuario por correo electrónico en la base de datos
         const usuarioEncontrado = await usuario.findOne({ email: body.email })
-        console.log(usuarioEncontrado)
 
         if (!usuarioEncontrado) {
             return {
@@ -32,7 +31,6 @@ export default defineEventHandler(async (event) => {
         }
 
     } catch (error) {
-        console.log(error)
         return {
             error: 'Ocurrió un error al iniciar sesión.'
         };

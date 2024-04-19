@@ -47,7 +47,6 @@ export default defineEventHandler(async (event) => {
             message: 'Publicación creada exitosamente.'
         };
     } catch (error) {
-        console.log(error);
         return {
             error: 'Ocurrió un error al crear la publicación.'
         };

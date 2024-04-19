@@ -86,7 +86,6 @@ onMounted(async () => {
     // Llamada a la función para obtener los comentarios
     const media = useMediaStore();
     const response = await media.todosComentarios({ idMedia: route.params.comentario });
-    console.log(response)
     
     if (Array.isArray(response) && response.length > 0) {
       comentario.value = response.map((item, index) => ({

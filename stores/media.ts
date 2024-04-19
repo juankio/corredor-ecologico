@@ -12,7 +12,6 @@ export const useMediaStore = defineStore('media', () => {
         descripcion: string,
         archivo: string
     }) {
-        console.log(mediaData);
         try {
             const token = localStorage.getItem('jwt'); // Obtener el token de localStorage
 
@@ -53,7 +52,6 @@ export const useMediaStore = defineStore('media', () => {
             });
 
             if (data) {
-                console.log('back o frond', data._rawValue.data)
                 return data._rawValue.data;
             } else {
                 const error = 'No se pudo encontrar publicaciones.';
@@ -74,7 +72,6 @@ export const useMediaStore = defineStore('media', () => {
     }) {
         try {
             const token = localStorage.getItem('jwt'); // Obtener el token de localStorage
-            console.log('>:)', mediaData)
 
             const { data, error } = await useFetch('/api/media/comentar-media', {
                 method: 'POST',
@@ -89,7 +86,6 @@ export const useMediaStore = defineStore('media', () => {
             });
 
             if (data._rawValue.message) {
-                console.log('back o frond', data)
                 navigateTo(`/dashboard`)
 
                 return data._rawValue.message;
@@ -121,7 +117,6 @@ export const useMediaStore = defineStore('media', () => {
 
 
             if (data._rawValue.message) {
-                console.log('back o sapo', data)
                 return data._rawValue.data;
             } else {
                 return data._rawValue.error;

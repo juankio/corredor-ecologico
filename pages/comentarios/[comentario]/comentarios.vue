@@ -75,7 +75,6 @@ const state = reactive({
   comentario: undefined
 })
 const usuario =  user.users._id
-console.log(usuario)
 
 const toast = useToast();
 async function onSubmit (event: FormSubmitEvent<Schema>) {
@@ -88,7 +87,6 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
       user:usuario
     });
     
-    console.log("desde aca",respuesta)
     toast.add({title:respuesta ,color:'yellow' });
 
     state.tituloComentario = '';

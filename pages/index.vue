@@ -76,7 +76,6 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
     await schema.validate(event.data, { abortEarly: false });
 
     const responde = await userStore.login(event.data);
-    console.log("desde aca",responde)
     toast.add({title:responde,color:'yellow' });
 
     state.email = '';

@@ -11,12 +11,11 @@
 
       <UForm :schema="schema" :state="state" class="text-start w-80" @submit="onSubmit">
         <UFormGroup class="mt-4">
-          <UTextarea 
-            
+          <UTextarea
             class="text-center justify-center items-center"
             size="lg"
             color="yellow"
-            :placeholder="'Pregunta clave: '+ preguntaClave"
+            :placeholder="'Pregunta clave: ' + preguntaClave"
             disabled
           />
         </UFormGroup>
@@ -43,9 +42,11 @@
           />
         </UFormGroup>
 
-        <UButton type="submit" color="yellow" class="justify-center mt-10 w-full"> Enviar </UButton>
+        <UButton type="submit" color="yellow" class="justify-center mt-10 w-full">
+          Enviar
+        </UButton>
       </UForm>
-      <UiLiinks/>
+      <UiLiinks />
     </div>
   </div>
 </template>
@@ -71,23 +72,20 @@ const schema = object({
 })
 
 type Schema = InferType<typeof schema>
-  
+
   const state = reactive({
     respuesta: undefined,
     password: undefined,
   })
   const userStore = useUserStore();
   const router = useRouter();
-  
+
   setTimeout(() => {
   }, 1000);
-  
+
   const pregunta = ref<string | null>(typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('preguntaClave')) : null);
   const id = ref<string | null>(typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('id')) : null);
-console.log('>:)',id._rawValue)
 
-  
-console.log('local',pregunta._rawValue.preguntaClave)
 
 const preguntaClave=pregunta._rawValue.preguntaClave
 const idUsuario=id._rawValue
@@ -103,8 +101,7 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
       password: event.data.password,
 
     });
-    console.log(respuesta)
-    
+
 
     toast.add({title:respuesta,color:'yellow' });
 
