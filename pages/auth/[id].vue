@@ -42,7 +42,14 @@
 <script setup lang="ts">
 import { object, string, type InferType } from 'yup'
 import type { FormSubmitEvent } from '#ui/types'
-
+useSeoMeta({
+  title: 'Pregunta Clave-Corredor Ecologico',
+  ogTitle: 'Pregunta Clave-Corredor Ecologico',
+  description: 'Descubre un paraíso natural en el Corredor Ecológico, donde la biodiversidad y la conservación se unen en armonía.',
+  ogDescription: 'Explora la belleza natural del Corredor Ecológico y enamórate de la naturaleza como nunca antes.',
+  ogImage: 'https://example.com/image.png',
+  twitterCard: 'summary_large_image',
+})
 const toast = useToast();
 const route = useRoute();
 const schema = object({

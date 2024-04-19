@@ -53,7 +53,14 @@
 <script setup lang="ts">
 import { object, string, type InferType } from 'yup'
 import type { FormSubmitEvent } from '#ui/types'
-
+useSeoMeta({
+  title: 'Crear cuenta-Corredor Ecologico',
+  ogTitle: 'Crear cuenta-Corredor Ecologico',
+  description: 'Descubre un paraíso natural en el Corredor Ecológico, donde la biodiversidad y la conservación se unen en armonía.',
+  ogDescription: 'Explora la belleza natural del Corredor Ecológico y enamórate de la naturaleza como nunca antes.',
+  ogImage: 'https://example.com/image.png',
+  twitterCard: 'summary_large_image',
+})
 const toast = useToast();
 const schema = object({
   email: string().email('Invalid email').required('Required'),
