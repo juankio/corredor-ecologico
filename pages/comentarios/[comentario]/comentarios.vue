@@ -49,6 +49,7 @@
 <script setup lang="ts">
 import { object, string, type InferType } from 'yup'
 import type { FormSubmitEvent } from '#ui/types'
+
 useSeoMeta({
   title: 'Comentario-Corredor Ecologico',
   ogTitle: 'Comentario-Corredor Ecologico',
@@ -59,6 +60,7 @@ useSeoMeta({
 })
 const route = useRoute();
 const media = useMediaStore();
+const user = useUserStore();
 const schema = object({
   tituloComentario: string().required('Required'),
   comentario: string()
@@ -72,6 +74,8 @@ const state = reactive({
   tituloComentario: undefined,
   comentario: undefined
 })
+const usuario =  user.users._id
+console.log(usuario)
 
 const toast = useToast();
 async function onSubmit (event: FormSubmitEvent<Schema>) {
@@ -80,8 +84,10 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
     const respuesta= await media.comentarios({
       tituloMensage: state.tituloComentario,
       mensaje: state.comentario,
-      idMedia: route.params.comentario
-});
+      idMedia: route.params.comentario,
+      user:usuario
+    });
+    
     console.log("desde aca",respuesta)
     toast.add({title:respuesta ,color:'yellow' });
 

@@ -11,10 +11,10 @@ const comentarioSchema = new mongoose.Schema({
         require: true,
         trim: true,
     },
-    mensaje: {
-        type: String,
-        require: true,
-        trim: true,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'usuario',
+        required: true
     },
     idMedia: {
         type: mongoose.Schema.Types.ObjectId,

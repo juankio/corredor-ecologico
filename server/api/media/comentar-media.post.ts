@@ -33,19 +33,14 @@ export default defineEventHandler(async (event) => {
         await verifyToken(event.req, event.res, () => { }); // Verificar el token antes de procesar la solicitud
         // Crear un nuevo comentario en la base de datos
         const nuevoComentario = await comentario.create({
-            userName: body.userName,
+            user: body.user,
             mensaje: body.mensaje,
             tituloMensage: body.tituloMensage,
             idMedia: body.idMedia,
-            img: body.img
         });
         await nuevoComentario.populate({
             path: 'idMedia',
             select: 'archivo titulo descripcion user',
-            populate: {
-                path: 'user',
-                select: 'name email',
-            }
         })
         return {
             message: 'Comentario creado exitosamente.'

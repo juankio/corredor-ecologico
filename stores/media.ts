@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { useUserStore } from '@/stores/user';
-import { usuario } from '../server/models/usuario.model';
 
 export const useMediaStore = defineStore('media', () => {
     const archivo = ref({})
@@ -71,11 +70,11 @@ export const useMediaStore = defineStore('media', () => {
         titulo: string,
         comentario: string,
         idMedia: string,
-        usuario: string
+        user: string,
     }) {
         try {
             const token = localStorage.getItem('jwt'); // Obtener el token de localStorage
-            // console.log('>:)', mediaData)
+            console.log('>:)', mediaData)
 
             const { data, error } = await useFetch('/api/media/comentar-media', {
                 method: 'POST',
@@ -85,6 +84,7 @@ export const useMediaStore = defineStore('media', () => {
                 },
                 body: JSON.stringify({
                     ...mediaData,
+                    // user: useUserStore.users._id
                 })
             });
 
@@ -99,6 +99,7 @@ export const useMediaStore = defineStore('media', () => {
         } catch (error) {
             // Capturar cualquier error inesperado aquí
             console.error('Error inesperado:', error);
+
             const mensaje = 'No se pudo agregar el medio. Error inesperado.';
             return mensaje;
         }

@@ -32,13 +32,14 @@ export default defineEventHandler(async (event) => {
         // Buscar todos los comentarios con el idMedia especificado
         const comentarios = await comentario.find(
             { idMedia: body.idMedia },
-            { tituloMensage: 1, mensaje: 1, userName: 1, idMedia: 1 }
+            { tituloMensage: 1, mensaje: 1, idMedia: 1, user: 1 }
         ).populate({
-            path: 'idMedia', select: 'archivo', populate: {
-                path: 'user',
-                select: 'name',
-            }
-        });
+            path: 'idMedia', select: 'archivo'
+        }).populate({
+            path: 'user',
+            select: 'name',
+        })
+
         return {
             data: comentarios,
             message: 'Comentarios obtenidos exitosamente.'

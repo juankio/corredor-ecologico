@@ -140,10 +140,8 @@ const links2 = [
 const toast = useToast();
 const handleExit = () => {
   // Lógica para manejar la acción de salida...
-  localStorage.removeItem("users");
-  localStorage.removeItem("jwt");
-  toast.add({ title: "Cerrando session", color: "yellow" });
-  // Redirigir a la ruta de salida
+  localStorage.clear(); // Esta línea borra todos los elementos del localStorage
+  toast.add({ title: "Cerrando sesión", color: "yellow" });
 };
 
 </script>

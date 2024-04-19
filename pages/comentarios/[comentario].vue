@@ -1,3 +1,4 @@
+import { comentario } from '../../server/models/comentarios.model';
 <template>
   <section v-if="$route.name === 'comentarios-comentario'">
     <div class="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">
@@ -33,7 +34,6 @@
              <div v-else> 
               <div class="flex flex-col">
                 <UButton
-                  v-if="comentario.length > 0"
                   icon="i-heroicons-pencil-square"
                   size="sm"
                   color="yellow"
@@ -71,21 +71,26 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 // Variables reactivas
-const comentario = ref([]);
 const imagenComentario = ref(null);
 
 // Obtenemos la ruta actual
 const route = useRoute();
-
+const comentario = ref([]);
 // Llamada a la función para obtener los comentarios cuando el componente se monta
 onMounted(async () => {
   try {
+    setTimeout(async () => {
+      const response = await media.todosComentarios({ idMedia: route.params.comentario });
+      publicaciones.value = response || [];
+    }, 100);
     // Llamada a la función para obtener los comentarios
     const media = useMediaStore();
     const response = await media.todosComentarios({ idMedia: route.params.comentario });
+    console.log(response)
+    
     if (Array.isArray(response) && response.length > 0) {
       comentario.value = response.map((item, index) => ({
-        label: `${item.idMedia.user.name}: ${item.tituloMensage}`,
+        label: `${item.user.name}: ${item.tituloMensage}`,
         icon: "i-heroicons-user",
         content: item.mensaje,
       }));
